@@ -4,7 +4,7 @@
 
 bitnet.cpp is the official inference framework for 1-bit LLMs (e.g., BitNet b1.58). It offers a suite of optimized kernels, that support **fast** and **lossless** inference of 1.58-bit models on CPU (with NPU and GPU support coming next).
 
-The first release of bitnet.cpp is to support inference on CPUs. bitnet.cpp achieves speedups of **1.37x** to **5.07x** on ARM CPUs, with larger models experiencing greater performance gains. Additionally, it reduces energy consumption by **55.4%** to **70.0%**, further boosting overall efficiency. On x86 CPUs, speedups range from **2.37x** to **6.17x** with energy reductions between **71.9%** to **82.2%**. Furthermore, bitnet.cpp can run a 100B BitNet b1.58 model on a single CPU, achieving speeds comparable to human reading (5-7 tokens per second), significantly enhancing the potential for running LLMs on local devices. More details will be provided soon.
+The first release of bitnet.cpp is to support inference on CPUs. bitnet.cpp achieves speedups of **1.37x** to **5.07x** on ARM CPUs, with larger models experiencing greater performance gains. Additionally, it reduces energy consumption by **55.4%** to **70.0%**, further boosting overall efficiency. On x86 CPUs, speedups range from **2.37x** to **6.17x** with energy reductions between **71.9%** to **82.2%**. Furthermore, bitnet.cpp can run a 100B BitNet b1.58 model on a single CPU, achieving speeds comparable to human reading (5-7 tokens per second), significantly enhancing the potential for running LLMs on local devices. Please refer to the [technical report](https://arxiv.org/abs/2410.16144) for more details.
 
 <img src="./assets/m2_performance.jpg" alt="m2_performance" width="800"/>
 <img src="./assets/intel_performance.jpg" alt="m2_performance" width="800"/>
@@ -17,11 +17,18 @@ A demo of bitnet.cpp running a BitNet b1.58 3B model on Apple M2:
 
 https://github.com/user-attachments/assets/7f46b736-edec-4828-b809-4be780a3e5b1
 
-## Timeline
-
+## What's New:
+- 02/18/2025 [Bitnet.cpp: Efficient Edge Inference for Ternary LLMs](https://arxiv.org/abs/2502.11880) ![NEW](https://img.shields.io/badge/NEW-red)
+- 11/08/2024 [BitNet a4.8: 4-bit Activations for 1-bit LLMs](https://arxiv.org/abs/2411.04965)
+- 10/21/2024 [1-bit AI Infra: Part 1.1, Fast and Lossless BitNet b1.58 Inference on CPUs](https://arxiv.org/abs/2410.16144)
 - 10/17/2024 bitnet.cpp 1.0 released.
+- 03/21/2024 [The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ](https://github.com/microsoft/unilm/blob/master/bitnet/The-Era-of-1-bit-LLMs__Training_Tips_Code_FAQ.pdf)
 - 02/27/2024 [The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits](https://arxiv.org/abs/2402.17764)
 - 10/17/2023 [BitNet: Scaling 1-bit Transformers for Large Language Models](https://arxiv.org/abs/2310.11453)
+
+## Acknowledgements
+
+This project is based on the [llama.cpp](https://github.com/ggerganov/llama.cpp) framework. We would like to thank all the authors for their contributions to the open-source community. Also, bitnet.cpp's kernels are built on top of the Lookup Table methodologies pioneered in [T-MAC](https://github.com/microsoft/T-MAC/). For inference of general low-bit LLMs beyond ternary models, we recommend using T-MAC.
 
 ## Supported Models
 ❗️**We use existing 1-bit LLMs available on [Hugging Face](https://huggingface.co/) to demonstrate the inference capabilities of bitnet.cpp. These models are neither trained nor released by Microsoft. We hope the release of bitnet.cpp will inspire the development of 1-bit LLMs in large-scale settings in terms of model size and training tokens.**
@@ -43,43 +50,57 @@ https://github.com/user-attachments/assets/7f46b736-edec-4828-b809-4be780a3e5b1
         <td rowspan="2"><a href="https://huggingface.co/1bitLLM/bitnet_b1_58-large">bitnet_b1_58-large</a></td>
         <td rowspan="2">0.7B</td>
         <td>x86</td>
-        <td>&#10004;</td>
-        <td>&#10008;</td>
-        <td>&#10004;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
+        <td>&#9989;</td>
     </tr>
     <tr>
         <td>ARM</td>
-        <td>&#10004;</td>
-        <td>&#10004;</td>
-        <td>&#10008;</td>
+        <td>&#9989;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
     </tr>
     <tr>
         <td rowspan="2"><a href="https://huggingface.co/1bitLLM/bitnet_b1_58-3B">bitnet_b1_58-3B</a></td>
         <td rowspan="2">3.3B</td>
         <td>x86</td>
-        <td>&#10008;</td>
-        <td>&#10008;</td>
-        <td>&#10004;</td>
+        <td>&#10060;</td>
+        <td>&#10060;</td>
+        <td>&#9989;</td>
     </tr>
     <tr>
         <td>ARM</td>
-        <td>&#10008;</td>
-        <td>&#10004;</td>
-        <td>&#10008;</td>
+        <td>&#10060;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
     </tr>
     <tr>
         <td rowspan="2"><a href="https://huggingface.co/HF1BitLLM/Llama3-8B-1.58-100B-tokens">Llama3-8B-1.58-100B-tokens</a></td>
         <td rowspan="2">8.0B</td>
         <td>x86</td>
-        <td>&#10004;</td>
-        <td>&#10008;</td>
-        <td>&#10004;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
+        <td>&#9989;</td>
     </tr>
     <tr>
         <td>ARM</td>
-        <td>&#10004;</td>
-        <td>&#10004;</td>
-        <td>&#10008;</td>
+        <td>&#9989;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
+    </tr>
+    <tr>
+        <td rowspan="2"><a href="https://huggingface.co/collections/tiiuae/falcon3-67605ae03578be86e4e87026">Falcon3 Family</a></td>
+        <td rowspan="2">1B-10B</td>
+        <td>x86</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
+        <td>&#9989;</td>
+    </tr>
+    <tr>
+        <td>ARM</td>
+        <td>&#9989;</td>
+        <td>&#9989;</td>
+        <td>&#10060;</td>
     </tr>
 </table>
 
@@ -99,7 +120,7 @@ https://github.com/user-attachments/assets/7f46b736-edec-4828-b809-4be780a3e5b1
         -  MS-Build Support for LLVM-Toolset (clang)
     - For Debian/Ubuntu users, you can download with [Automatic installation script](https://apt.llvm.org/)
 
-        ` bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"`
+        `bash -c "$(wget -O - https://apt.llvm.org/llvm.sh)"`
 - conda (highly recommend)
 
 ### Build from source
@@ -123,21 +144,21 @@ pip install -r requirements.txt
 3. Build the project
 ```bash
 # Download the model from Hugging Face, convert it to quantized gguf format, and build the project
-python setup_env.py --hf-repo HF1BitLLM/Llama3-8B-1.58-100B-tokens -q i2_s
+python setup_env.py --hf-repo tiiuae/Falcon3-7B-Instruct-1.58bit -q i2_s
 
 # Or you can manually download the model and run with local path
-huggingface-cli download HF1BitLLM/Llama3-8B-1.58-100B-tokens --local-dir models/Llama3-8B-1.58-100B-tokens
-python setup_env.py -md models/Llama3-8B-1.58-100B-tokens -q i2_s
+huggingface-cli download tiiuae/Falcon3-7B-Instruct-1.58bit --local-dir models/Falcon3-7B-Instruct-1.58bit
+python setup_env.py -md models/Falcon3-7B-Instruct-1.58bit -q i2_s
 ```
 <pre>
-usage: setup_env.py [-h] [--hf-repo {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens}] [--model-dir MODEL_DIR] [--log-dir LOG_DIR] [--quant-type {i2_s,tl1}] [--quant-embd]
+usage: setup_env.py [-h] [--hf-repo {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens,tiiuae/Falcon3-1B-Instruct-1.58bit,tiiuae/Falcon3-3B-Instruct-1.58bit,tiiuae/Falcon3-7B-Instruct-1.58bit,tiiuae/Falcon3-10B-Instruct-1.58bit}] [--model-dir MODEL_DIR] [--log-dir LOG_DIR] [--quant-type {i2_s,tl1}] [--quant-embd]
                     [--use-pretuned]
 
 Setup the environment for running inference
 
 optional arguments:
   -h, --help            show this help message and exit
-  --hf-repo {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens}, -hr {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens}
+  --hf-repo {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens,tiiuae/Falcon3-1B-Instruct-1.58bit,tiiuae/Falcon3-3B-Instruct-1.58bit,tiiuae/Falcon3-7B-Instruct-1.58bit,tiiuae/Falcon3-10B-Instruct-1.58bit}, -hr {1bitLLM/bitnet_b1_58-large,1bitLLM/bitnet_b1_58-3B,HF1BitLLM/Llama3-8B-1.58-100B-tokens,tiiuae/Falcon3-1B-Instruct-1.58bit,tiiuae/Falcon3-3B-Instruct-1.58bit,tiiuae/Falcon3-7B-Instruct-1.58bit,tiiuae/Falcon3-10B-Instruct-1.58bit}
                         Model used for inference
   --model-dir MODEL_DIR, -md MODEL_DIR
                         Directory to save/load the model
@@ -152,15 +173,10 @@ optional arguments:
 ### Basic usage
 ```bash
 # Run inference with the quantized model
-python run_inference.py -m models/Llama3-8B-1.58-100B-tokens/ggml-model-i2_s.gguf -p "Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:" -n 6 -temp 0
-
-# Output:
-# Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?
-# Answer: Mary is in the garden.
-
+python run_inference.py -m models/Falcon3-7B-Instruct-1.58bit/ggml-model-i2_s.gguf -p "You are a helpful assistant" -cnv
 ```
 <pre>
-usage: run_inference.py [-h] [-m MODEL] [-n N_PREDICT] -p PROMPT [-t THREADS] [-c CTX_SIZE] [-temp TEMPERATURE]
+usage: run_inference.py [-h] [-m MODEL] [-n N_PREDICT] -p PROMPT [-t THREADS] [-c CTX_SIZE] [-temp TEMPERATURE] [-cnv]
 
 Run inference
 
@@ -178,6 +194,8 @@ optional arguments:
                         Size of the prompt context
   -temp TEMPERATURE, --temperature TEMPERATURE
                         Temperature, a hyperparameter that controls the randomness of the generated text
+  -cnv, --conversation  Whether to enable chat mode or not (for instruct models.)
+                        (When this option is turned on, the prompt specified by -p will be used as the system prompt.)
 </pre>
 
 ### Benchmark
@@ -228,6 +246,4 @@ python utils/generate-dummy-bitnet-model.py models/bitnet_b1_58-large --outfile 
 python utils/e2e_benchmark.py -m models/dummy-bitnet-125m.tl1.gguf -p 512 -n 128
 ```
 
-## Acknowledgements
 
-This project is based on the [llama.cpp](https://github.com/ggerganov/llama.cpp) framework. We would like to thank all the authors for their contributions to the open-source community. We also thank [T-MAC](https://github.com/microsoft/T-MAC/) team for the helpful discussion on the LUT method for low-bit LLM inference.
